@@ -1,7 +1,7 @@
 Import-Module ExchangeOnlineManagement
 
 # Connect to Office 365 through certification
-Connect-ExchangeOnline -CertificateFilePath "CertPath" -CertificatePassword (ConvertTo-SecureString -String "CertPass" -AsPlainText -Force) -AppID "CertAppID" -Organization "organizationDomain"
+Connect-ExchangeOnline -CertificateFilePath "C:\Temp\MailboxUsage.pfx" -CertificatePassword (ConvertTo-SecureString -String "password" -AsPlainText -Force) -AppID "app_id" -Organization "domain.onmicrosoft.com"
 
 # Get mailbox usage statistics for all users
 $mailboxStats = Get-Mailbox -ResultSize Unlimited 
@@ -95,14 +95,14 @@ $workbook.SaveAs($csvFilePath)
 $excel.Quit()
 
 # email details
-$EmailTo = "recipientEmail"
-$EmailFrom = "senderEmail"
+$EmailTo = "email_to"
+$EmailFrom = "email_from"
 $Subject = "Weekly Mailbox Usage CSV"
 
 $SMTPServer = "smtp.gmail.com"
 $SMTPPort = "587"
-$SMTPUser = "gmailUSer"
-$SMTPPassword = "gmailPassword"
+$SMTPUser = "user"
+$SMTPPassword = "pass"
 
 # create email message with attachment
 $Message = New-Object System.Net.Mail.MailMessage($EmailFrom,$EmailTo,$Subject,$Body)

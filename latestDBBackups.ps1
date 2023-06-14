@@ -1,8 +1,8 @@
-﻿$backupEE = Get-ChildItem -Path "\\iolfs01\Departments\IOL\IT\EasyEnquiryMSSQLBackup" | Sort-Object -Property LastWriteTime | Select-Object -Last 1
+﻿$backupEE = Get-ChildItem -Path "\\sharedfolder\Departments\IOL\IT\EasyEnquiryMSSQLBackup" | Sort-Object -Property LastWriteTime | Select-Object -Last 1
 $filePath = "C:\Temp\latestDBBackups.txt"
 
 # Set the file path
-$backupOrcl = "\\iolfs01\Departments\IOL\IT\OracleDBBackup\FULLBACKUP.DMP"
+$backupOrcl = "\\sharedfolder\Departments\IOL\IT\OracleDBBackup\FULLBACKUP.DMP"
 
 # Get the file's date and time
 $fileDateOrcl = (Get-ChildItem $backupOrcl).LastWriteTime
@@ -20,15 +20,15 @@ Add-Content -Path $filePath -Value "EE Latest Backup File Date & Time: $fileDate
 $Body = "ORCL Latest Backup File Date & Time: $fileDateOrcl / Size: $fileSizeOrcl GB || `n"
 $Body = $Body + "EE Latest Backup File Date & Time: $fileDateEE / Size: $fileSizeEE GB"
 
-$EmailTo = "recipientEmail"
-$EmailCc = ""
-$EmailFrom = "senderEmail"
+$EmailTo = "email_to"
+$EmailCc = "email_cc"
+$EmailFrom = "email_from"
 $Subject = "Latest DB Backups"
 
 $SMTPServer = "smtp.gmail.com"
 $SMTPPort = "587"
-$SMTPUser = "gmailUser"
-$SMTPPassword = "gmailPassword"
+$SMTPUser = "smtp_user"
+$SMTPPassword = "smtp_pass"
 
 # create email message with attachment
 $Message = New-Object System.Net.Mail.MailMessage($EmailFrom,$EmailTo,$Subject,$Body)
